@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 from . forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 def register(request):
+    # ToDo: in order to have user edit User and Profile fields on 
+    # registration, create 2 forms 
+    # (user_registration_form, profile_update_form) and follow steps in 
+    # profile()
+
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -30,6 +35,8 @@ def profile(request):
         if user_update_form.is_valid() and profile_update_form.is_valid():
             user_update_form.save()
             profile_update_form.save()
+            messages.success(request, f'Your account has been updated.')
+            return redirect('profile')
     else:
         user_update_form = UserUpdateForm(instance=request.user)
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
