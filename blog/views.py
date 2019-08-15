@@ -16,6 +16,7 @@ class PostListView(ListView):
     template_name = 'blog/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
+    paginate_by = 2
 
 class PostDetailView(DetailView):
     # class based views - template naming convention: 
